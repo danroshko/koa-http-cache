@@ -1,0 +1,23 @@
+{
+  "name": "koa-cache",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "jest"
+  },
+  "engines": {
+    "node": ">=7.8"
+  },
+  "author": "Danil Roshko <danroshko@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^5.1.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0"
+  }
+}
