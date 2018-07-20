@@ -1,13 +1,20 @@
 const crypto = require('crypto')
-let redis = require('./src/redis')
+const RedisMock = require('./src/redis')
 
+let redis = new RedisMock()
 let PREFIX = 'khc:'
 let EXPIRES = 0
+
+setImmediate(() => {
+  if (redis instanceof RedisMock) {
+    console.warn('WARN: no real redis instance was specified for koa-cache')
+  }
+})
 
 /**
  * Global configuration
  * @param {Object} options
- * @param {Object} [options.redis] redis client (with promises support)
+ * @param {Object} options.redis redis client (with promises support)
  * @param {String} [options.prefix='khc:'] prefix that will be added to cache keys
  * @param {Number} [options.expires=0] cache expiration time in seconds
  */

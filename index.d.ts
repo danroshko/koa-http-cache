@@ -1,5 +1,5 @@
 interface IConfig {
-  redis?: any;
+  redis: any;
   prefix?: string;
   expires?: number;
 }
