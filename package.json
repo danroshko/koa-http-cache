@@ -1,6 +1,7 @@
 {
   "name": "@danroshko/koa-cache",
   "version": "0.1.0",
+  "private": false,
   "description": "HTTP caching middleware for koa",
   "main": "index.js",
   "types": "index.d.ts",
@@ -9,6 +10,10 @@
   },
   "engines": {
     "node": ">=7.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danroshko/koa-http-cache.git"
   },
   "author": "Danil Roshko <danroshko@gmail.com>",
   "license": "MIT",
