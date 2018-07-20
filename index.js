@@ -4,6 +4,13 @@ let redis = require('./src/redis')
 let PREFIX = 'khc:'
 let EXPIRES = 0
 
+/**
+ * Global configuration
+ * @param {Object} options
+ * @param {Object} [options.redis] redis client (with promises support)
+ * @param {String} [options.prefix='khc:'] prefix that will be added to cache keys
+ * @param {Number} [options.expires=0] cache expiration time in seconds
+ */
 exports.configure = options => {
   if ('redis' in options) {
     redis = options.redis
@@ -16,23 +23,24 @@ exports.configure = options => {
   }
 }
 
-exports.cache = (namespace, id) => {
+exports.createMiddleware = id => {
   const middleware = async (ctx, next) => {
-    const etag = ctx.get('If-None-Match')
-    const key = PREFIX + ':' + namespace + ':' + id
+    const key = PREFIX + ':' + id(ctx)
 
-    if (!etag) {
+    if (ctx.method !== 'GET') {
       await next()
-      return cacheResponse(ctx, key)
+      return redis.del(key)
     }
 
+    const etag = ctx.get('If-None-Match')
     const hash = await redis.hget(key, 'hash')
+
     if (!hash) {
       await next()
       return cacheResponse(ctx, key)
     }
 
-    if (etag !== hash) {
+    if (!etag || etag !== hash) {
       ctx.body = await redis.hget(key, 'cache')
       ctx.type = 'application/json; charset=utf-8'
       ctx.set('ETag', hash)
@@ -41,17 +49,6 @@ exports.cache = (namespace, id) => {
     }
 
     ctx.status = 304
-  }
-
-  return middleware
-}
-
-exports.clear = function (namespace, id) {
-  const middleware = async (ctx, next) => {
-    await next()
-
-    const key = PREFIX + ':' + namespace + ':' + id
-    return redis.del(key)
   }
 
   return middleware
