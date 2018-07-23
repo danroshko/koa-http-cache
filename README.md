@@ -1,5 +1,8 @@
 # Koa HTTP cache
 
+[![Build Status](https://travis-ci.org/danroshko/koa-http-cache.svg?branch=master)](https://travis-ci.org/danroshko/koa-http-cache)
+[![npm version](https://badge.fury.io/js/%40danroshko%2Fkoa-cache.svg)](https://badge.fury.io/js/%40danroshko%2Fkoa-cache)
+
 HTTP caching middleware for koa
 
 - uses redis for storage
