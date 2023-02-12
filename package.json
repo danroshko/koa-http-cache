@@ -18,7 +18,7 @@
   "author": "Danil Roshko <danroshko@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "got": "^11.8.5",
+    "got": "^12.5.3",
     "jest": "^24.9.0",
     "koa": "^2.8.2",
     "koa-router": "^7.4.0"
